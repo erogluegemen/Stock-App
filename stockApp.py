@@ -1,10 +1,10 @@
-################### KÜTÜPHANELER ###################
+################### LIBRARIES ###################
 import yfinance as yf
 import streamlit as st
 from datetime import datetime
 import datetime as d
 
-################### SAYFA AYARLARI ###################
+################### PAGE SETTINGS ###################
 st.set_page_config(
   page_title = 'Hisse Senedi Uygulaması',
   page_icon = '✅',
@@ -13,7 +13,7 @@ st.set_page_config(
 ################### SIDEBAR ###################
 my_page = st.sidebar.radio('Sayfalar', ['Analiz', 'Haberler', 'Bilgiler', 'Öneriler'])
 
-################### ANALİZ SAYFASI ###################
+################### ANALYSIS PAGE ###################
 if my_page == 'Analiz':
     st.write(
         """
@@ -45,7 +45,7 @@ if my_page == 'Analiz':
     """)
     st.line_chart(tickerDf.Volume)
 
-################### HABERLER SAYFASI ###################
+################### NEWS PAGE ###################
 elif my_page == 'Haberler':
     stock = st.text_input('Hisse Adı', 'GOOGL')
 
@@ -54,11 +54,8 @@ elif my_page == 'Haberler':
     st.write("""
     ## Haberler
     """)
-    news = tickerData.news #tickerData.newss -> Liste formatında
+    news = tickerData.news #tickerData.newss -> list type
 
-#    tickerData.news(değişkende verdiğimiz ismiyle news) içersinde kullanmayacağımız parametreler içeriyordu.
-#    Aşağıda sadece kullanacağımız 3 bilgiyi çekiyoruz:
-#    Haberi başlığı(title), Haberin kaynağı(publisher), Haberin Linki(link)
 
     # Get Title
     a_key = "title"
@@ -74,13 +71,7 @@ elif my_page == 'Haberler':
     a_key = "link"
     values_of_link = [a_dict[a_key] for a_dict in news]
     # print(values_of_link) #test
-
-    #Öncelikle haber ile haberin kaynağını zipliyoruz.
-    #Elimizde birleşmiş halleriniz var. Liste formatına çevirip bir değişkene atıyoruz.
     
-    #Daha sonra ikinci zip işlemize geçiyoruz.
-    #Bu sefer ilk başta zipleyip bir değişkene atadığımız değer ile linki zipliyoruz.
-    #Oluşan zipi yine liste formatına çevirip bir değişkene atıyoruz.
 
     zip1 = zip(values_of_title, values_of_publisher)
     content = (list(zip1))
@@ -90,7 +81,7 @@ elif my_page == 'Haberler':
 
     st.write(content2)
 
-################### BİLGİLER SAYFASI ###################
+################### INFORMATION PAGE ###################
 elif my_page == 'Bilgiler':
     stock = st.text_input('Hisse Adı', 'GOOGL')
 
@@ -104,7 +95,7 @@ elif my_page == 'Bilgiler':
     for key, value in info.items():
         st.write(key, ":", value)
 
-################### ÖNERİLER SAYFASI ###################
+################### SUGGESTION PAGE ###################
 elif my_page == "Öneriler":
     stock = st.text_input('Hisse Adı', 'GOOGL')
 
